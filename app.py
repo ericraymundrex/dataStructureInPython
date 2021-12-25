@@ -1,47 +1,56 @@
-class Queue:
+class queue:
         def __init__(self):
-                self.queue=[]
-        def enqueue(self,data):
-                self.queue.append(data)
+                self.Q=[]
+        def enqueue(self,data=-1):
+                self.Q.append(data)
         def dequeue(self):
-                x=self.queue[0]
-                self.queue.remove(self.queue[0])
+                x=self.Q[0]
+                self.Q.remove(x)
                 return x
         def is_empty(self):
-                return len(self.queue)
-class Node:
-        def __init__(self,data=None,lnode=None,rnode=None):
-                self.lnode=lnode
-                self.data=data
-                self.rnode=rnode
-class Tree:
+                return len(self.Q)==0
+class tree_array:
         def __init__(self):
-                self.root=None
-        def Create_a_tree(self):
-                q=Queue()
-                node=Node(input("Enter the data for the root node "))
-                self.root=node
-                q.enqueue(node)
-                pointer=Node()
-                while q.is_empty() != 0:
-                        pointer=q.dequeue()
-                        x=int(input(f"Enter the value of the left node of {pointer.data} "))
-                        if(x!=-1):
-                                temp=Node(x)
-                                pointer.lnode=temp
-                                q.enqueue(temp)
-                        x=int(input(f"Enter the value of the left node of {pointer.data} "))
-                        if(x!=-1):
-                                temp=Node(x)
-                                pointer.rnode=temp
-                                q.enqueue(temp)
-        def inorder(self,pointer):
-                if pointer is not None:
-                        print(pointer.data)
-                        self.inorder(pointer.lnode)
-                        self.inorder(pointer.rnode)
+                self.three=[]
+        def create_the_tree(self):
+                Q=queue()
 
+                data=int(input("Enter the value of the root node "))
+                Q.enqueue(data)
+                self.three.append(data)
+
+                while Q.is_empty()==False:
+                        x=Q.dequeue()
+                        data=int(input(f"Enter the left node of : {x} "))
+                        if data != -1:
+                                self.three.append(data)
+                                Q.enqueue(data)
+                        else:
+                                self.three.append(None)
+                        data=int(input(f"Enter the right node of : {x} "))
+                        if data != -1:
+                                self.three.append(data)
+                                Q.enqueue(data)
+                        else:
+                                self.three.append(None)
+                        #print(Q.Q)
+        def print_the_three(self):
+                decorator=1
+                for data in self.three:
+                        if decorator%2 == 0:
+                                print("\n")
+                        decorator=decorator+1
+                        print(str(data)+" ",end="")
+        def find_the_ancestor(self,data):
+                try:
+                        itr=self.three.index(data)
+                        while itr>0:
+                                print(self.three[itr])
+                                itr=itr//2
+                except Exception as e:
+                        print("There is an exception : "+str(e))
 if __name__=="__main__":
-        T= Tree()
-        T.Create_a_tree()
-        T.inorder(T.root)
+        T=tree_array()
+        T.create_the_tree()
+        T.print_the_three()
+        T.find_the_ancestor(30)
