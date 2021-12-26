@@ -1,6 +1,10 @@
 # iterative method for thaversal of the three
 
 #Stack
+from itertools import count
+from unittest.mock import NonCallableMagicMock
+
+
 class stack:
     def __init__(self):
         self.stack=[]
@@ -114,9 +118,37 @@ class BST:
                         self.inorder(itr.lchild)
                         print(itr.data)
                         self.inorder(itr.rchild)
-
+        def counting(self,itr):
+                if itr is not None:
+                        return self.counting(itr.lchild)+self.counting(itr.rchild)+1
+                return 0
+        def sum_of_the_nodes(self,itr):
+                if itr is not None:
+                        return itr.data+self.sum_of_the_nodes(itr.lchild)+self.sum_of_the_nodes(itr.rchild)
+                return 0
+        def to_count_the_nodes_with_degree2(self,itr):
+                if itr is not None:
+                        if itr.lchild is not None and itr.rchild is not None:
+                                return self.to_count_the_nodes_with_degree2(itr.lchild)+self.to_count_the_nodes_with_degree2(itr.rchild)+1
+                        else:
+                                return self.to_count_the_nodes_with_degree2(itr.lchild)+self.to_count_the_nodes_with_degree2(itr.rchild)
+                else:
+                        return 0
+        def to_find_the_height_of_the_tree(self,itr):
+                if itr is not None:
+                        x=self.to_find_the_height_of_the_tree(itr.lchild)
+                        y=self.to_find_the_height_of_the_tree(itr.rchild)
+                        if x>y:
+                                return x+1
+                        else:
+                                return y+1
+                return 0  
 if __name__=="__main__":
         t=BST()
-        li=[10,30,40,20,50,50]
+        li=[45,30,40,20,50,50]
         t.create_from_list(li)
+        print("Total number of nodes in the tree : "+str(t.sum_of_the_nodes(t.root)))
+        print("The sum of the nodes : "+str(t.sum_of_the_nodes(t.root)))
+        print("To cout the non leaf nodes : "+str(t.to_count_the_nodes_with_degree2(t.root)))
+        print("The height of the tree is : "+str(t.to_find_the_height_of_the_tree(t.root)))
         t.inorder(t.root)
