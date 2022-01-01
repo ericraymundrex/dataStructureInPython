@@ -1,11 +1,8 @@
-
-def febi(n):  
-    if n==1:
+def factorial(num):
+    #n!=(n)*(n-1)
+    if num==0:
         return 1
-    if n==0:
-        return 0
-
-    return febi(n-1)+febi(n-2)
-    
+    print(id(num))
+    return num*factorial(num-1)
 if __name__=="__main__":
-    print(febi(6))
+    print(factorial(5))
